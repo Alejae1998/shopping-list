@@ -25,20 +25,6 @@ listForm.addEventListener('submit', async (e) => {
 async function fetchAndDisplay() {
     const list = await getListItems();
     listEl.textContent = '';
-    for (let item of list) {
-        const itemEl = document.createElement('p');
-        itemEl.textContent = `${item.qty} ${item.item}`;
-        if (item.bought) {
-            itemEl.classList.add('bought');
-        } else {
-            itemEl.classList.add('not-bought');
-            itemEl.addEventListener('click', async () => {
-                await boughtItem(item.id);
-                fetchAndDisplay();
-            });
-        }
-        listEl.append(itemEl);
-    }
 }
 deleteBtn.addEventListener('click', async () => {
     await deleteAll();
