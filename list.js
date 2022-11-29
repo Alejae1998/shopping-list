@@ -42,3 +42,6 @@ async function fetchAndDisplay() {
 }
 
 /* Display Functions */
+window.addEventListener('load', async () => {
+    fetchAndDisplay();
+});
