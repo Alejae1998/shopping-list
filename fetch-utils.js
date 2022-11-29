@@ -48,7 +48,7 @@ export async function getItems() {
 export async function createItem(item) {
     const response = await client
         .from('shopping_list')
-        .insert([{ item: item, complete: false, user_id: client.auth.user().id }]);
+        .insert({ item: item, complete: false, user_id: client.auth.user().id });
     return checkError(response);
 }
 
@@ -60,5 +60,9 @@ export async function completeItem(someId) {
     return checkError(response);
 }
 export async function deleteAll() {
-    await client.from('shopping_list').delete().match({ user_id: client.auth.user().id });
+    const response = await client
+        .from('shopping_list')
+        .delete()
+        .match({ user_id: client.auth.user().id });
+    return checkError(response);
 }

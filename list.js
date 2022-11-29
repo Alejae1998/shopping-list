@@ -26,6 +26,7 @@ listForm.addEventListener('submit', async (e) => {
 async function fetchAndDisplay() {
     listEl.textContent = '';
     const lists = await getItems();
+    console.log('lists', lists);
     for (let list of lists) {
         const itemEl = renderList(list);
         itemEl.addEventListener('click', async () => {
@@ -36,6 +37,7 @@ async function fetchAndDisplay() {
     }
 }
 deleteBtn.addEventListener('click', async () => {
+    console.log(`deleteBtn`, deleteBtn);
     await deleteAll();
     fetchAndDisplay();
 });
