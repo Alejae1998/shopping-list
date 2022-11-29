@@ -48,3 +48,11 @@ export async function createListItem(item, qty) {
     const response = await client.from('shopping_list').insert([{ item, qty }]);
     return checkError(response);
 }
+
+export async function boughtItem(someId) {
+    const response = await client
+        .from('shopping_list')
+        .update({ bought: true })
+        .match({ id: someId });
+    return checkError(response);
+}
