@@ -36,26 +36,27 @@ function checkError({ data, error }) {
 }
 
 /* Data functions */
-export async function getListItems() {
+export async function getItems() {
     const response = await client
         .from('shopping_list')
         .select()
+        .order('complete')
         .match({ user_id: client.auth.user().id });
     return checkError(response);
 }
 
-export async function createListItem(item) {
+export async function createItem(item) {
     const response = await client
         .from('shopping_list')
         .insert([{ item: item, complete: false, user_id: client.auth.user().id }]);
     return checkError(response);
 }
 
-export async function boughtItem(someId) {
+export async function completeItem(someId) {
     const response = await client
         .from('shopping_list')
-        .update({ bought: true })
-        .match({ id: someId });
+        .update({ complete: true })
+        .match({ user_id: client.auth.user().id, id: someId });
     return checkError(response);
 }
 export async function deleteAll() {
