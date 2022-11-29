@@ -1,5 +1,5 @@
 /* Imports */
-import { boughtItem, checkAuth, createListItem, getListItems } from './fetch-utils.js';
+import { boughtItem, checkAuth, createListItem, deleteAll, getListItems } from './fetch-utils.js';
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
 
@@ -40,6 +40,10 @@ async function fetchAndDisplay() {
         listEl.append(itemEl);
     }
 }
+deleteBtn.addEventListener('click', async () => {
+    await deleteAll();
+    fetchAndDisplay();
+});
 
 /* Display Functions */
 window.addEventListener('load', async () => {
