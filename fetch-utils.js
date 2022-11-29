@@ -8,6 +8,11 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 export function getUser() {
     return client.auth.user();
 }
+export async function checkAuth() {
+    const user = getUser();
+
+    if (!user) location.replace('../');
+}
 
 export async function signUpUser(email, password) {
     return await client.auth.signUp({
