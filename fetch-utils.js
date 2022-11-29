@@ -32,6 +32,14 @@ function checkError({ data, error }) {
 
 /* Data functions */
 export async function getListItems() {
-    const response = await client.from('shopping_list').select();
+    const response = await client
+        .from('shopping_list')
+        .select()
+        .match({ user_id: client.auth.user().id });
+    return checkError(response);
+}
+
+export async function createListItem(item, qty) {
+    const response = await client.from('shopping_list').insert([{ item, qty }]);
     return checkError(response);
 }
