@@ -26,5 +26,12 @@ export async function signInUser(email, password) {
 export async function signOutUser() {
     return await client.auth.signOut();
 }
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
+}
 
 /* Data functions */
+export async function getListItems() {
+    const response = await client.from('shopping_list').select();
+    return checkError(response);
+}
