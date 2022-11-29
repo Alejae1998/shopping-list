@@ -1,6 +1,7 @@
 /* Imports */
 import { checkAuth, getItems, deleteAll, createItem, completeItem } from './fetch-utils.js';
 import { renderList } from './render-utils.js';
+import './auth/user.js';
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
 
@@ -19,19 +20,18 @@ listForm.addEventListener('submit', async (e) => {
     const data = new FormData(listForm);
     const item = data.get('item');
     const qty = data.get('qty');
-    await createItem(item, qty);
     listForm.reset();
+    const newItem = await createItem(item, qty);
     fetchAndDisplay();
 });
 async function fetchAndDisplay() {
     listEl.textContent = '';
     const lists = await getItems();
-    console.log('lists', lists);
     for (let list of lists) {
         const itemEl = renderList(list);
         itemEl.addEventListener('click', async () => {
             await completeItem(list.id);
-            fetchAndDisplay();
+            await fetchAndDisplay();
         });
         listEl.append(itemEl);
     }
